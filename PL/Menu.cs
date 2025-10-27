@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BLL.Services;
-using DAL.Entities;
+using Core.Entities;
 
 namespace PL
 {
@@ -265,11 +265,11 @@ namespace PL
                 _participantService.ValidateStudent(student);
                 _participants.Add(student);
 
-                Console.WriteLine("✅ Студента додано успішно!");
+                Console.WriteLine(" Студента додано успішно!");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Помилка: {ex.Message}");
+                Console.WriteLine($" Помилка: {ex.Message}");
             }
         }
         private void AddMedonaldsWorker()
@@ -299,11 +299,11 @@ namespace PL
                 _participantService.ValidateMedonaldsWorker(worker);
                 _participants.Add(worker);
 
-                Console.WriteLine("✅ Працівника додано успішно!");
+                Console.WriteLine(" Працівника додано успішно!");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Помилка: {ex.Message}");
+                Console.WriteLine($" Помилка: {ex.Message}");
             }
         }
 
@@ -334,11 +334,11 @@ namespace PL
                 _participantService.ValidateManager(manager);
                 _participants.Add(manager);
 
-                Console.WriteLine("✅ Менеджера додано успішно!");
+                Console.WriteLine(" Менеджера додано успішно!");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Помилка: {ex.Message}");
+                Console.WriteLine($" Помилка: {ex.Message}");
             }
         }
 
@@ -411,7 +411,7 @@ namespace PL
                 Console.WriteLine($"Гравець 2: {result.Player2}");
                 Console.WriteLine($"Переможець: {result.Winner}");
                 Console.WriteLine($"Кількість ходів: {result.Moves}");
-                Console.WriteLine("🎉 Вітаємо переможця!");
+                Console.WriteLine(" Вітаємо переможця!");
             }
             catch (Exception ex)
             {
@@ -460,17 +460,17 @@ namespace PL
 
                 if (!_participantService.ValidateFileName(filename))
                 {
-                    Console.WriteLine("❌ Назва файлу містить недопустимі символи!");
+                    Console.WriteLine(" Назва файлу містить недопустимі символи!");
                     return;
                 }
 
                 _participantService.SaveParticipantsToFile(_participants, filename);
                 string extension = _participantService.GetCurrentFileExtension();
-                Console.WriteLine($"✅ Дані збережено у файл: {filename}{extension}");
+                Console.WriteLine($" Дані збережено у файл: {filename}{extension}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Помилка збереження: {ex.Message}");
+                Console.WriteLine($" Помилка збереження: {ex.Message}");
             }
         }
 

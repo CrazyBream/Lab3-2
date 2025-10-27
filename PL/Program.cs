@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DAL;
 using DAL.DataProviders;
-using DAL.Entities;
+using Core.Entities;
 using BLL.Services;
 
 namespace PL

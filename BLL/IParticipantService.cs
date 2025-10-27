@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using DAL.Entities;
-using BLL.Models;
+using Core.Entities;
 
-namespace BLL.Interfaces
+namespace BLL
 {
     public interface IParticipantService
     {

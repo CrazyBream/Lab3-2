@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using DAL.Entities;
+using Core.Entities;
 
-namespace DAL.Interfaces
+namespace DAL
 {
     public interface IDataProvider
     {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using DAL.Entities;
-using DAL.Interfaces;
+using Core.Entities;
+using DAL;
 
 namespace DAL.DataProviders
 {

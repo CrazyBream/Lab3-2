@@ -1,10 +1,8 @@
 ﻿using BLL.Exceptions;
-using BLL.Interfaces;
-using BLL.Models;
+using BLL;
 using DAL;
 using DAL.DataProviders;
-using DAL.Entities;
-using DAL.Interfaces;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,7 +88,7 @@ namespace BLL.Services
                 _context.SetDataProvider(_currentDataProvider);
                 _context.SaveParticipants(participants, filename);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new FileOperationException($"Помилка збереження файлу: {ex.Message}");
             }
@@ -112,7 +110,7 @@ namespace BLL.Services
                 _context.SetDataProvider(_currentDataProvider);
                 return _context.LoadParticipants(filename);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new FileOperationException($"Помилка завантаження файлу: {ex.Message}");
             }

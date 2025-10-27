@@ -1,4 +1,4 @@
-﻿namespace BLL.Models
+﻿namespace Core.Entities
 {
     public class ChessGameResult
     {

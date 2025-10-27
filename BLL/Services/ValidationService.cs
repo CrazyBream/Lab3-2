@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using BLL.Exceptions;
-using DAL.Entities;
+using Core.Entities;
 
 namespace BLL.Services
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DAL.Entities
+namespace Core.Entities
 {
     [Serializable]
     [DataContract]

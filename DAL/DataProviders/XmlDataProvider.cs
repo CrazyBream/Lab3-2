@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using DAL.Entities;
-using DAL.Interfaces;
+using Core.Entities;
+using DAL;
 
 namespace DAL.DataProviders
 {
