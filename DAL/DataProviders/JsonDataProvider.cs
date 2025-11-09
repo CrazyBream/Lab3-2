@@ -59,7 +59,7 @@ namespace DAL.DataProviders
                     return typeName switch
                     {
                         "Student" => JsonSerializer.Deserialize<Student>(root.GetRawText(), options),
-                        "MedonaldsWorker" => JsonSerializer.Deserialize<MedonaldsWorker>(root.GetRawText(), options),
+                        "MсdonaldsWorker" => JsonSerializer.Deserialize<MсdonaldsWorker>(root.GetRawText(), options),
                         "Manager" => JsonSerializer.Deserialize<Manager>(root.GetRawText(), options),
                         _ => JsonSerializer.Deserialize<Person>(root.GetRawText(), options)
                     };
@@ -76,7 +76,7 @@ namespace DAL.DataProviders
                 case Student student:
                     JsonSerializer.Serialize(writer, student, options);
                     break;
-                case MedonaldsWorker worker:
+                case MсdonaldsWorker worker:
                     JsonSerializer.Serialize(writer, worker, options);
                     break;
                 case Manager manager:

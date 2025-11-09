@@ -41,7 +41,7 @@ namespace BLL.Services
         public List<string> GetSupportedFormats() => new List<string> { "json", "xml" };
 
         public void ValidateStudent(Student student) => _validationService.ValidateStudent(student);
-        public void ValidateMedonaldsWorker(MedonaldsWorker worker) => _validationService.ValidateMedonaldsWorker(worker);
+        public void ValidateMсdonaldsWorker(MсdonaldsWorker worker) => _validationService.ValidateMсdonaldsWorker(worker);
         public void ValidateManager(Manager manager) => _validationService.ValidateManager(manager);
         public bool ValidateFileName(string filename) => _validationService.ValidateFileName(filename);
 

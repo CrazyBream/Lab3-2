@@ -30,7 +30,7 @@ namespace BLL.Services
                 throw new InvalidParticipantDataException("Номер залікової книжки повинен мати формат: ZB12345678");
         }
 
-        public void ValidateMedonaldsWorker(MedonaldsWorker worker)
+        public void ValidateMсdonaldsWorker(MсdonaldsWorker worker)
         {
             if (string.IsNullOrWhiteSpace(worker.Name))
                 throw new InvalidParticipantDataException("Ім'я не може бути порожнім");

@@ -10,7 +10,7 @@ namespace BLL
         List<string> GetSupportedFormats();
 
         void ValidateStudent(Student student);
-        void ValidateMedonaldsWorker(MedonaldsWorker worker);
+        void ValidateMсdonaldsWorker(MсdonaldsWorker worker);
         void ValidateManager(Manager manager);
 
         int CountStudentsFromUkraineInThirdCourse(List<Person> participants);

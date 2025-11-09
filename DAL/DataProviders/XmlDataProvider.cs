@@ -17,7 +17,7 @@ namespace DAL.DataProviders
 
             var serializer = new XmlSerializer(typeof(List<Person>), new[] {
                 typeof(Student),
-                typeof(MedonaldsWorker),
+                typeof(MсdonaldsWorker),
                 typeof(Manager)
             });
 
@@ -34,7 +34,7 @@ namespace DAL.DataProviders
 
             var serializer = new XmlSerializer(typeof(List<Person>), new[] {
                 typeof(Student),
-                typeof(MedonaldsWorker),
+                typeof(MсdonaldsWorker),
                 typeof(Manager)
             });
 

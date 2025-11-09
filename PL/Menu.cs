@@ -86,7 +86,7 @@ namespace PL
                         AddStudent();
                         break;
                     case "2":
-                        AddMedonaldsWorker();
+                        AddMсdonaldsWorker();
                         break;
                     case "3":
                         AddManager();
@@ -272,7 +272,7 @@ namespace PL
                 Console.WriteLine($" Помилка: {ex.Message}");
             }
         }
-        private void AddMedonaldsWorker()
+        private void AddMсdonaldsWorker()
         {
             Console.WriteLine("\n=== Додавання працівника McDonald's ===");
 
@@ -294,9 +294,9 @@ namespace PL
                 Console.Write("Грає в шахи? (так/ні): ");
                 bool canPlayChess = Console.ReadLine().ToLower() == "так";
 
-                var worker = new MedonaldsWorker(name, position, hoursWorked, canPlayChess);
+                var worker = new MсdonaldsWorker(name, position, hoursWorked, canPlayChess);
 
-                _participantService.ValidateMedonaldsWorker(worker);
+                _participantService.ValidateMсdonaldsWorker(worker);
                 _participants.Add(worker);
 
                 Console.WriteLine(" Працівника додано успішно!");

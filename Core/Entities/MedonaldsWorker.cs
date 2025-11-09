@@ -5,7 +5,7 @@ namespace Core.Entities
 {
     [Serializable]
     [DataContract]
-    public class MedonaldsWorker : Person
+    public class MсdonaldsWorker : Person
     {
         [DataMember]
         public string Position { get; set; }
@@ -13,9 +13,9 @@ namespace Core.Entities
         [DataMember]
         public int HoursWorked { get; set; }
 
-        public MedonaldsWorker() : base("", false) { }
+        public MсdonaldsWorker() : base("", false) { }
 
-        public MedonaldsWorker(string name, string position, int hoursWorked, bool canPlayChess = false)
+        public MсdonaldsWorker(string name, string position, int hoursWorked, bool canPlayChess = false)
             : base(name, canPlayChess)
         {
             Position = position;
