@@ -4,7 +4,7 @@ using Core.Entities;
 
 namespace BLL.Services
 {
-    public class ValidationService
+    public class ValidationService : IValidationService
     {
         public void ValidateStudent(Student student)
         {
@@ -67,6 +67,8 @@ namespace BLL.Services
 
         public bool ValidateFileFormat(string format)
         {
+            if (string.IsNullOrEmpty(format))
+                return false;
             return format.ToLower() == "json" || format.ToLower() == "xml";
         }
     }

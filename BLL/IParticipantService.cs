@@ -21,5 +21,10 @@ namespace BLL
 
         void SaveParticipantsToFile(List<Person> participants, string filename);
         List<Person> LoadParticipantsFromFile(string filename);
+
+        string PrepareBurger(MсdonaldsWorker worker, string[] ingredients);
+        string PrepareSpecialBurger(MсdonaldsWorker worker);
+        string ManageProject(Manager manager, string projectName);
+        string ConductMeeting(Manager manager);
     }
 }

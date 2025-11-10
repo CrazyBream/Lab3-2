@@ -26,6 +26,7 @@ namespace PL
                 Console.WriteLine("2. Студенти");
                 Console.WriteLine("3. Гра в шахи");
                 Console.WriteLine("4. Робота з файлами");
+                Console.WriteLine("5. Додаткові операції");
                 Console.WriteLine("0. Вихід");
                 Console.Write("Виберіть опцію: ");
 
@@ -47,6 +48,9 @@ namespace PL
                         case "4":
                             ShowFilesMenu();
                             break;
+                        case "5":
+                            ShowAdditionalOperationsMenu();
+                            break;
                         case "0":
                             return;
                         default:
@@ -61,6 +65,62 @@ namespace PL
 
                 Console.WriteLine("\nНатисніть будь-яку клавішу для продовження...");
                 Console.ReadKey();
+            }
+        }
+
+        private void ShowAdditionalOperationsMenu()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("=== Додаткові операції ===");
+                Console.WriteLine("1. Приготувати бургер (McDonald's)");
+                Console.WriteLine("2. Приготувати спеціальний бургер");
+                Console.WriteLine("3. Керувати проектом (Менеджер)");
+                Console.WriteLine("4. Провести нараду (Менеджер)");
+                Console.WriteLine("5. Приготувати бургер за посадою");
+                Console.WriteLine("6. Прийняти рішення (Менеджер)");
+                Console.WriteLine("7. Оцінити продуктивність (Менеджер)");
+                Console.WriteLine("0. Повернутися до головного меню");
+                Console.Write("Виберіть опцію: ");
+
+                var choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        PrepareBurger();
+                        break;
+                    case "2":
+                        PrepareSpecialBurger();
+                        break;
+                    case "3":
+                        ManageProject();
+                        break;
+                    case "4":
+                        ConductMeeting();
+                        break;
+                    case "5":
+                        PrepareBurgerByPosition();
+                        break;
+                    case "6":
+                        MakeDecision();
+                        break;
+                    case "7":
+                        EvaluatePerformance();
+                        break;
+                    case "0":
+                        return;
+                    default:
+                        Console.WriteLine("Невірний вибір!");
+                        break;
+                }
+
+                if (choice != "0")
+                {
+                    Console.WriteLine("\nНатисніть будь-яку клавішу для продовження...");
+                    Console.ReadKey();
+                }
             }
         }
 
@@ -272,6 +332,7 @@ namespace PL
                 Console.WriteLine($" Помилка: {ex.Message}");
             }
         }
+
         private void AddMсdonaldsWorker()
         {
             Console.WriteLine("\n=== Додавання працівника McDonald's ===");
@@ -415,7 +476,7 @@ namespace PL
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Помилка: {ex.Message}");
+                Console.WriteLine($" Помилка: {ex.Message}");
             }
         }
 
@@ -443,11 +504,11 @@ namespace PL
                 };
 
                 _participantService.SetDataProvider(format);
-                Console.WriteLine($"Формат змінено на: {format.ToUpper()}");
+                Console.WriteLine($" Формат змінено на: {format.ToUpper()}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Помилка: {ex.Message}");
+                Console.WriteLine($" Помилка: {ex.Message}");
             }
         }
 
@@ -482,14 +543,325 @@ namespace PL
                 string filename = Console.ReadLine();
 
                 _participants = _participantService.LoadParticipantsFromFile(filename);
-                Console.WriteLine($"Дані завантажено з файлу: {filename}");
-                Console.WriteLine($"Завантажено {_participants.Count} учасників");
+                Console.WriteLine($" Дані завантажено з файлу: {filename}");
+                Console.WriteLine($" Завантажено {_participants.Count} учасників");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Помилка завантаження: {ex.Message}");
-                Console.WriteLine("Перевірте формат файлу та спробуйте ще раз.");
+                Console.WriteLine($" Помилка завантаження: {ex.Message}");
+                Console.WriteLine(" Перевірте формат файлу та спробуйте ще раз.");
             }
+        }
+
+
+        private void PrepareBurger()
+        {
+            Console.WriteLine("\n=== Приготування бургера ===");
+
+            var workers = FindMcdonaldsWorkers();
+            if (workers.Count == 0)
+            {
+                Console.WriteLine(" Працівників McDonald's не знайдено.");
+                return;
+            }
+
+            Console.WriteLine("Оберіть працівника:");
+            for (int i = 0; i < workers.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {workers[i].Name} - {workers[i].Position}");
+            }
+
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= workers.Count)
+            {
+                var worker = workers[choice - 1];
+
+                Console.WriteLine("Введіть інгредієнти (через кому): ");
+                string ingredientsInput = Console.ReadLine();
+                string[] ingredients = ingredientsInput.Split(',');
+
+                // Очищаємо інгредієнти від зайвих пробілів
+                for (int i = 0; i < ingredients.Length; i++)
+                {
+                    ingredients[i] = ingredients[i].Trim();
+                }
+
+                try
+                {
+                    string result = _participantService.PrepareBurger(worker, ingredients);
+                    Console.WriteLine($"🍔 Результат: {result}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Помилка: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(" Невірний вибір!");
+            }
+        }
+
+        private void PrepareSpecialBurger()
+        {
+            Console.WriteLine("\n=== Приготування спеціального бургера ===");
+
+            var workers = FindMcdonaldsWorkers();
+            if (workers.Count == 0)
+            {
+                Console.WriteLine(" Працівників McDonald's не знайдено.");
+                return;
+            }
+
+            Console.WriteLine("Оберіть працівника:");
+            for (int i = 0; i < workers.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {workers[i].Name} - {workers[i].Position}");
+            }
+
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= workers.Count)
+            {
+                var worker = workers[choice - 1];
+
+                try
+                {
+                    string result = _participantService.PrepareSpecialBurger(worker);
+                    Console.WriteLine($"🍔 Результат: {result}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Помилка: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(" Невірний вибір!");
+            }
+        }
+
+        private void PrepareBurgerByPosition()
+        {
+            Console.WriteLine("\n=== Приготування бургера за посадою ===");
+
+            var workers = FindMcdonaldsWorkers();
+            if (workers.Count == 0)
+            {
+                Console.WriteLine(" Працівників McDonald's не знайдено.");
+                return;
+            }
+
+            Console.WriteLine("Оберіть працівника:");
+            for (int i = 0; i < workers.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {workers[i].Name} - {workers[i].Position}");
+            }
+
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= workers.Count)
+            {
+                var worker = workers[choice - 1];
+
+                try
+                {
+                    string result = worker.PrepareBurgerByPosition();
+                    Console.WriteLine($"🍔 Результат: {result}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Помилка: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(" Невірний вибір!");
+            }
+        }
+
+        private void ManageProject()
+        {
+            Console.WriteLine("\n=== Керування проектом ===");
+
+            var managers = FindManagers();
+            if (managers.Count == 0)
+            {
+                Console.WriteLine(" Менеджерів не знайдено.");
+                return;
+            }
+
+            Console.WriteLine("Оберіть менеджера:");
+            for (int i = 0; i < managers.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {managers[i].Name} - {managers[i].Department}");
+            }
+
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= managers.Count)
+            {
+                var manager = managers[choice - 1];
+
+                Console.Write("Введіть назву проекту: ");
+                string projectName = Console.ReadLine();
+
+                try
+                {
+                    string result = _participantService.ManageProject(manager, projectName);
+                    Console.WriteLine($" Результат: {result}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Помилка: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(" Невірний вибір!");
+            }
+        }
+
+        private void ConductMeeting()
+        {
+            Console.WriteLine("\n=== Проведення наради ===");
+
+            var managers = FindManagers();
+            if (managers.Count == 0)
+            {
+                Console.WriteLine(" Менеджерів не знайдено.");
+                return;
+            }
+
+            Console.WriteLine("Оберіть менеджера:");
+            for (int i = 0; i < managers.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {managers[i].Name} - {managers[i].Department}");
+            }
+
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= managers.Count)
+            {
+                var manager = managers[choice - 1];
+
+                try
+                {
+                    string result = _participantService.ConductMeeting(manager);
+                    Console.WriteLine($" Результат: {result}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Помилка: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(" Невірний вибір!");
+            }
+        }
+
+        private void MakeDecision()
+        {
+            Console.WriteLine("\n=== Прийняття рішення ===");
+
+            var managers = FindManagers();
+            if (managers.Count == 0)
+            {
+                Console.WriteLine(" Менеджерів не знайдено.");
+                return;
+            }
+
+            Console.WriteLine("Оберіть менеджера:");
+            for (int i = 0; i < managers.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {managers[i].Name} - {managers[i].Department}");
+            }
+
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= managers.Count)
+            {
+                var manager = managers[choice - 1];
+
+                Console.Write("Введіть рішення: ");
+                string decision = Console.ReadLine();
+
+                try
+                {
+                    string result = manager.MakeDecision(decision);
+                    Console.WriteLine($" Результат: {result}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Помилка: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(" Невірний вибір!");
+            }
+        }
+
+        private void EvaluatePerformance()
+        {
+            Console.WriteLine("\n=== Оцінка продуктивності ===");
+
+            var managers = FindManagers();
+            if (managers.Count == 0)
+            {
+                Console.WriteLine(" Менеджерів не знайдено.");
+                return;
+            }
+
+            Console.WriteLine("Оберіть менеджера:");
+            for (int i = 0; i < managers.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {managers[i].Name} - {managers[i].Department}");
+            }
+
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= managers.Count)
+            {
+                var manager = managers[choice - 1];
+
+                Console.Write("Введіть оцінку продуктивності (0-100): ");
+                if (int.TryParse(Console.ReadLine(), out int performanceScore) && performanceScore >= 0 && performanceScore <= 100)
+                {
+                    try
+                    {
+                        string result = manager.EvaluatePerformance(performanceScore);
+                        Console.WriteLine($"📈 Результат: {result}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($" Помилка: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(" Неправильна оцінка продуктивності!");
+                }
+            }
+            else
+            {
+                Console.WriteLine(" Невірний вибір!");
+            }
+        }
+
+
+        private List<MсdonaldsWorker> FindMcdonaldsWorkers()
+        {
+            var workers = new List<MсdonaldsWorker>();
+            foreach (var person in _participants)
+            {
+                if (person is MсdonaldsWorker worker)
+                {
+                    workers.Add(worker);
+                }
+            }
+            return workers;
+        }
+
+        private List<Manager> FindManagers()
+        {
+            var managers = new List<Manager>();
+            foreach (var person in _participants)
+            {
+                if (person is Manager manager)
+                {
+                    managers.Add(manager);
+                }
+            }
+            return managers;
         }
     }
 }

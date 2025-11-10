@@ -6,22 +6,28 @@ using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace BLL.Services
 {
     public class ParticipantService : IParticipantService
     {
-        private ParticipantContext _context;
+        private readonly IParticipantContext _context;
+        private IDataProvider _dataProvider;
+        private readonly IValidationService _validationService;
         private Random _random;
-        private IDataProvider _currentDataProvider;
-        private ValidationService _validationService;
 
-        public ParticipantService(ParticipantContext context)
+        public ParticipantService(IParticipantContext context, IDataProvider dataProvider, IValidationService validationService)
         {
             _context = context;
+            _dataProvider = dataProvider;
+            _validationService = validationService;
             _random = new Random();
-            _currentDataProvider = new JsonDataProvider();
-            _validationService = new ValidationService();
+        }
+
+        public ParticipantService(ParticipantContext context)
+            : this(context, new JsonDataProvider(), new ValidationService())
+        {
         }
 
         public void SetDataProvider(string format)
@@ -29,15 +35,19 @@ namespace BLL.Services
             if (!_validationService.ValidateFileFormat(format))
                 throw new InvalidParticipantDataException("Непідтримуваний формат. Використовуйте 'json' або 'xml'");
 
-            _currentDataProvider = format.ToLower() switch
+            IDataProvider newProvider = format.ToLower() switch
             {
                 "json" => new JsonDataProvider(),
                 "xml" => new XmlDataProvider(),
                 _ => throw new InvalidParticipantDataException("Непідтримуваний формат")
             };
+
+            _context.SetDataProvider(newProvider);
+            _dataProvider = newProvider; 
         }
 
-        public string GetCurrentFileExtension() => _currentDataProvider.FileExtension;
+        public string GetCurrentFileExtension() => _dataProvider.FileExtension;
+
         public List<string> GetSupportedFormats() => new List<string> { "json", "xml" };
 
         public void ValidateStudent(Student student) => _validationService.ValidateStudent(student);
@@ -85,7 +95,6 @@ namespace BLL.Services
                 if (!_validationService.ValidateFileName(filename))
                     throw new InvalidParticipantDataException("Назва файлу містить недопустимі символи");
 
-                _context.SetDataProvider(_currentDataProvider);
                 _context.SaveParticipants(participants, filename);
             }
             catch (Exception ex)
@@ -101,19 +110,37 @@ namespace BLL.Services
                 if (!_validationService.ValidateFileName(Path.GetFileNameWithoutExtension(filename)))
                     throw new InvalidParticipantDataException("Назва файлу містить недопустимі символи");
 
-
-                if (filename.EndsWith(".json"))
-                    _currentDataProvider = new JsonDataProvider();
-                else if (filename.EndsWith(".xml"))
-                    _currentDataProvider = new XmlDataProvider();
-
-                _context.SetDataProvider(_currentDataProvider);
                 return _context.LoadParticipants(filename);
             }
             catch (Exception ex)
             {
                 throw new FileOperationException($"Помилка завантаження файлу: {ex.Message}");
             }
+        }
+
+
+        public string PrepareBurger(MсdonaldsWorker worker, string[] ingredients)
+        {
+            _validationService.ValidateMсdonaldsWorker(worker);
+            return worker.PrepareBurger(ingredients);
+        }
+
+        public string PrepareSpecialBurger(MсdonaldsWorker worker)
+        {
+            _validationService.ValidateMсdonaldsWorker(worker);
+            return worker.PrepareSpecialBurger();
+        }
+
+        public string ManageProject(Manager manager, string projectName)
+        {
+            _validationService.ValidateManager(manager);
+            return manager.ManageProject(projectName);
+        }
+
+        public string ConductMeeting(Manager manager)
+        {
+            _validationService.ValidateManager(manager);
+            return manager.ConductMeeting();
         }
     }
 }

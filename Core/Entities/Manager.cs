@@ -22,6 +22,36 @@ namespace Core.Entities
             Experience = experience;
         }
 
+        public string ManageProject(string projectName)
+        {
+            if (string.IsNullOrWhiteSpace(projectName))
+                return "Назва проекту не може бути порожньою";
+
+            return $"Керую проектом '{projectName}' у відділі {Department} (досвід: {Experience} років)";
+        }
+
+        public string ConductMeeting()
+        {
+            return $"Проводжу нараду у відділі {Department}";
+        }
+
+        public string MakeDecision(string decision)
+        {
+            return $"Прийнято рішення: {decision} (на основі {Experience} років досвіду)";
+        }
+
+        public string EvaluatePerformance(int performanceScore)
+        {
+            if (performanceScore >= 90)
+                return "Відмінна продуктивність!";
+            else if (performanceScore >= 70)
+                return "Добра продуктивність";
+            else if (performanceScore >= 50)
+                return "Задовільна продуктивність";
+            else
+                return "Потребує покращення";
+        }
+
         public override void DisplayInfo()
         {
             Console.WriteLine($"Менеджер: {Name}");

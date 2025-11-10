@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Core.Entities;
-using DAL;
 
 namespace DAL
 {
-    public class ParticipantContext
+    public class ParticipantContext : IParticipantContext
     {
         private IDataProvider _dataProvider;
 

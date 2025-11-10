@@ -17,7 +17,9 @@ namespace PL
 
             var jsonProvider = new JsonDataProvider();
             var context = new ParticipantContext(jsonProvider);
-            var participantService = new ParticipantService(context);
+            var validationService = new ValidationService();
+
+            var participantService = new ParticipantService(context, jsonProvider, validationService);
 
             var menu = new Menu(participantService);
             menu.ShowMainMenu();

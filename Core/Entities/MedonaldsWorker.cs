@@ -22,6 +22,31 @@ namespace Core.Entities
             HoursWorked = hoursWorked;
         }
 
+        public string PrepareBurger(string[] ingredients)
+        {
+            if (ingredients == null || ingredients.Length == 0)
+                return "Немає інгредієнтів для приготування бургера";
+
+            return $"Приготовано бургер з інгредієнтами: {string.Join(", ", ingredients)}";
+        }
+
+        public string PrepareSpecialBurger()
+        {
+            string[] defaultIngredients = { "булочка", "котлета", "сир", "салат", "соус" };
+            return PrepareBurger(defaultIngredients);
+        }
+
+        public string PrepareBurgerByPosition()
+        {
+            return Position.ToLower() switch
+            {
+                "касир" => PrepareBurger(new[] { "булочка", "котлета", "сир" }),
+                "кухар" => PrepareSpecialBurger(),
+                "менеджер" => PrepareBurger(new[] { "булочка", "подвійна котлета", "сир", "бекон", "соус" }),
+                _ => PrepareSpecialBurger()
+            };
+        }
+
         public override void DisplayInfo()
         {
             Console.WriteLine($"Працівник McDonald's: {Name}");
